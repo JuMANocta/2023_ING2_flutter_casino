@@ -1,5 +1,6 @@
-import 'package:casino_2023_ing2_flutter/result_screen.dart';
 import 'package:flutter/material.dart';
+import 'result_screen.dart';
+import 'game_logic.dart';
 
 class GameScreen extends StatefulWidget {
   final int solde;
@@ -39,21 +40,26 @@ class _GameScreenState extends State<GameScreen> {
           miseController.clear();
         }
       } catch (e) {
-        message = 'La mise doit être inférieur à votre solde de ${widget.solde}€';
+        message =
+            'La mise doit être inférieur à votre solde de ${widget.solde}€';
         mise = 0;
         miseController.clear();
       }
 
       if (chiffre >= 0 && chiffre <= 49 && mise > 0 && mise <= widget.solde) {
+        GameLogic gameLogic =
+            GameLogic(solde: widget.solde, chiffre: chiffre, mise: mise);
+        gameLogic.play();
         Navigator.push(
           context,
           MaterialPageRoute(
             builder: (context) => ResultScreen(
-                                        solde: widget.solde, 
-                                        chiffre: chiffre, 
-                                        mise: mise, 
-                                        isWinner: true,
-                                  ),
+                solde: gameLogic.solde,
+                chiffre: gameLogic.chiffre,
+                mise: gameLogic.mise,
+                isWinner: gameLogic.isWinner,
+                croupier: gameLogic.croupier,
+                message: gameLogic.message),
           ),
         );
       } else {

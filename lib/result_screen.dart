@@ -5,14 +5,18 @@ class ResultScreen extends StatefulWidget {
   final int chiffre;
   final int mise;
   final bool isWinner;
+  final int croupier;
+  final String message;
 
-  const ResultScreen(
-      {Key? key,
-      required this.solde,
-      required this.chiffre,
-      required this.mise,
-      required this.isWinner})
-      : super(key: key);
+  const ResultScreen({
+    Key? key,
+    required this.solde,
+    required this.chiffre,
+    required this.mise,
+    required this.isWinner,
+    required this.croupier,
+    required this.message,
+  }) : super(key: key);
 
   @override
   _ResultScreenState createState() => _ResultScreenState();
@@ -32,7 +36,7 @@ class _ResultScreenState extends State<ResultScreen> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Text(widget.isWinner ? 'Félicitation !' : 'Dommage ...'),
+            Text(widget.message, style: const TextStyle(fontSize: 24)),
             const SizedBox(height: 16),
             Text(
               'Votre solde est de ${widget.solde}€',
