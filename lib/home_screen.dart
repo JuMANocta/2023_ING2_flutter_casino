@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   solde = int.parse(soldeController.text);
                 });
               },
-              child: const Text('Valider'),
+              child: const Text('Démarrer Game 🤑'),
             ),
           ],
         )

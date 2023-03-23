@@ -15,7 +15,8 @@ git clone gh repo clone JuMANocta/2023_ing2_flutter_casino.git
   . créer un widget AppBar avec le titre de l'application  
   . ajouter un widget Text pour afficher un message de bienvenue  
   . insérer un champ de text TextFormField pour saisir le solde initial  
-  . insérer un bouton RaisedButton pour lancer le jeu  
+  . insérer un bouton ElevatedButton pour lancer le jeu  
+  . ajout de notre page à main.dart
 2. Création du widget de la page de jeu
 3. Création du widget des résultats
 4. Création du widget de barre de navigation
