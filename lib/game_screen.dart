@@ -3,9 +3,9 @@ import 'result_screen.dart';
 import 'game_logic.dart';
 
 class GameScreen extends StatefulWidget {
-  final int solde;
+  int solde;
 
-  const GameScreen({Key? key, required this.solde}) : super(key: key);
+  GameScreen({Key? key, required this.solde}) : super(key: key);
 
   @override
   _GameScreenState createState() => _GameScreenState();
@@ -59,7 +59,12 @@ class _GameScreenState extends State<GameScreen> {
                 mise: gameLogic.mise,
                 isWinner: gameLogic.isWinner,
                 croupier: gameLogic.croupier,
-                message: gameLogic.message),
+                message: gameLogic.message,
+                onPlayAgain: (int newSolde) {
+                  setState(() {
+                    widget.solde = newSolde;
+                  });
+                }),
           ),
         );
       } else {

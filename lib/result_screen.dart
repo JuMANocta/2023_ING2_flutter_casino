@@ -7,6 +7,7 @@ class ResultScreen extends StatefulWidget {
   final bool isWinner;
   final int croupier;
   final String message;
+  final Function onPlayAgain;
 
   const ResultScreen({
     Key? key,
@@ -16,6 +17,7 @@ class ResultScreen extends StatefulWidget {
     required this.isWinner,
     required this.croupier,
     required this.message,
+    required this.onPlayAgain,
   }) : super(key: key);
 
   @override
@@ -29,7 +31,7 @@ class _ResultScreenState extends State<ResultScreen> {
       appBar: AppBar(
         title: const Text('Casino App - Résultat'),
       ),
-      body: Container(
+      body: SizedBox(
         width: double.infinity,
         //width: MediaQuery.of(context).size.width,
         child: Column(
@@ -44,7 +46,10 @@ class _ResultScreenState extends State<ResultScreen> {
             ),
             const SizedBox(height: 16),
             ElevatedButton(
-              onPressed: () => Navigator.pop(context),
+              onPressed: () {
+                widget.onPlayAgain(widget.solde);
+                Navigator.pop(context);
+              },
               child: const Text('Rejouer'),
             ),
           ],

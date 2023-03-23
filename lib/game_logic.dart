@@ -26,7 +26,7 @@ class GameLogic {
         couleur = 'NOIR';
       }
       message =
-          'Félicitation ! Vous avez gagné $mise€ gr^ce à la couleur $couleur';
+          'Félicitation ! Vous avez gagné $mise€ grâce à la couleur $couleur';
     } else {
       isWinner = false;
       solde -= mise;
