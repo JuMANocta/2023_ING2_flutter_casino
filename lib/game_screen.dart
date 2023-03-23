@@ -1,3 +1,4 @@
+import 'package:casino_2023_ing2_flutter/result_screen.dart';
 import 'package:flutter/material.dart';
 
 class GameScreen extends StatefulWidget {
@@ -47,7 +48,12 @@ class _GameScreenState extends State<GameScreen> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => GameScreen(solde: widget.solde),
+            builder: (context) => ResultScreen(
+                                        solde: widget.solde, 
+                                        chiffre: chiffre, 
+                                        mise: mise, 
+                                        isWinner: true,
+                                  ),
           ),
         );
       } else {
