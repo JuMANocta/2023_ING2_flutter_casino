@@ -16,16 +16,33 @@ class _GameScreenState extends State<GameScreen> {
   final TextEditingController miseController = TextEditingController();
 
   void valideStartGame() {
+    String message = '';
     if (chiffreController.text.isNotEmpty && miseController.text.isNotEmpty) {
       try {
         chiffre = int.parse(chiffreController.text);
-        mise = int.parse(miseController.text);
+        if (chiffre < 0 || chiffre > 49) {
+          message = 'Le chiffre doit être compris entre 0 et 49';
+          chiffre = 0;
+          chiffreController.clear();
+        }
       } catch (e) {
+        message = 'Le chiffre doit être compris entre 0 et 49';
         chiffre = 0;
-        mise = 0;
         chiffreController.clear();
+      }
+      try {
+        mise = int.parse(miseController.text);
+        if (mise < 0) {
+          message = 'La mise doit être supérieur à 0';
+          mise = 0;
+          miseController.clear();
+        }
+      } catch (e) {
+        message = 'La mise doit être inférieur à votre solde de ${widget.solde}€';
+        mise = 0;
         miseController.clear();
       }
+
       if (chiffre >= 0 && chiffre <= 49 && mise > 0 && mise <= widget.solde) {
         Navigator.push(
           context,
@@ -39,8 +56,7 @@ class _GameScreenState extends State<GameScreen> {
             builder: (BuildContext context) {
               return AlertDialog(
                 title: const Text('Erreur'),
-                content: Text(
-                    'Le chiffre doit être compris entre 0 et 49 et la mise doit être inférieur à votre solde de ${widget.solde}€'),
+                content: Text(message),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context),
