@@ -22,7 +22,7 @@ class _GameScreenState extends State<GameScreen> {
     if (chiffreController.text.isNotEmpty && miseController.text.isNotEmpty) {
       try {
         chiffre = int.parse(chiffreController.text);
-        if (chiffre < 0 || chiffre > 49) {
+        if (chiffre < 0 && chiffre > 49) {
           message = 'Le chiffre doit être compris entre 0 et 49';
           chiffre = 0;
           chiffreController.clear();
