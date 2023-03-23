@@ -63,6 +63,8 @@ class _GameScreenState extends State<GameScreen> {
                 onPlayAgain: (int newSolde) {
                   setState(() {
                     widget.solde = newSolde;
+                    chiffreController.clear();
+                    miseController.clear();
                   });
                 }),
           ),
