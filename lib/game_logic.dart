@@ -21,7 +21,7 @@ class GameLogic {
         chiffre % 2 == 1 && croupier % 2 == 1) {
       String couleur = 'ROUGE';
       isWinner = true;
-      solde += mise + (mise * 0.5).ceil();
+      solde += (mise * 0.5).ceil();
       if (chiffre % 2 == 1) {
         couleur = 'NOIR';
       }

@@ -51,31 +51,48 @@ class _HomeScreenState extends State<HomeScreen> {
       appBar: AppBar(
         title: const Text('Casino App'),
       ),
-      body: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              const Text(
-                'Bienvenue dans le casino',
-                style: TextStyle(fontSize: 24),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage('assets/images/porte.jpg'),
+                fit: BoxFit.cover,
               ),
-              const SizedBox(height: 16),
-              TextFormField(
-                controller: soldeController,
-                keyboardType: TextInputType.number,
-                decoration: const InputDecoration(
-                  labelText: 'Entrez votre solde',
-                  border: OutlineInputBorder(),
-                ),
-              ),
-              const SizedBox(height: 16),
-              ElevatedButton(
-                onPressed: startGame,
-                child: const Text('Démarrer Game 🤑'),
-              ),
-            ],
-          )),
+            ),
+          ),
+          SizedBox(
+            
+            height: 300,
+              child: Card(
+                  elevation: 8,
+                  shadowColor: Colors.green[900],
+                  color: Colors.green[100],
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'Bienvenue dans le casino',
+                        style: TextStyle(fontSize: 24),
+                      ),
+                      const SizedBox(height: 16),
+                      TextFormField(
+                        controller: soldeController,
+                        keyboardType: TextInputType.number,
+                        decoration: const InputDecoration(
+                          labelText: 'Entrez votre solde',
+                          border: OutlineInputBorder(),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      ElevatedButton(
+                        onPressed: startGame,
+                        child: const Text('Démarrer Game 🤑'),
+                      ),
+                    ],
+                  ))),
+        ],
+      ),
     );
   }
 }

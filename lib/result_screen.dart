@@ -77,7 +77,11 @@ class _ResultScreenState extends State<ResultScreen> {
                 ],
               ),
             ),
-            Text(widget.message, style: const TextStyle(fontSize: 24)),
+            Text(
+              widget.message,
+              style: const TextStyle(fontSize: 24),
+              textAlign: TextAlign.center,
+              ),
             const SizedBox(height: 16),
             Text(
               'Votre solde est de ${widget.solde}€',

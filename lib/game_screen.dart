@@ -34,7 +34,7 @@ class _GameScreenState extends State<GameScreen> {
       }
       try {
         mise = int.parse(miseController.text);
-        if (mise < 0) {
+        if (mise < 0 && mise > widget.solde) {
           message = 'La mise doit être supérieur à 0';
           mise = 0;
           miseController.clear();
