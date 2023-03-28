@@ -65,6 +65,7 @@ class _ResultScreenState extends State<ResultScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeCasino = Theme.of(context);
     return WillPopScope(
       onWillPop: () async => false, // Empêche la navigation en arrière
       child: Scaffold(
@@ -79,6 +80,7 @@ class _ResultScreenState extends State<ResultScreen> {
               image: DecorationImage(
                 image: AssetImage(roulette()),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(themeCasino.colorScheme.secondary.withOpacity(0.6), BlendMode.darken),
               ),
             ),
           ),
@@ -90,8 +92,7 @@ class _ResultScreenState extends State<ResultScreen> {
               child: Card(
                 margin: const EdgeInsets.all(24),
                 elevation: 8,
-                shadowColor: Colors.green[900],
-                // shadowColor: Colors.green[900],
+                shadowColor: themeCasino.primaryColorDark,
                 color: widget.isWinner
                     ? Colors.green[200]?.withOpacity(0.9)
                     : Colors.red[200]?.withOpacity(0.9),
@@ -99,7 +100,7 @@ class _ResultScreenState extends State<ResultScreen> {
                   // Ajouter cette ligne
                   borderRadius: BorderRadius.circular(16),
                   side: BorderSide(
-                    color: Colors.green[900]!,
+                    color: themeCasino.primaryColorDark,
                     width: 2,
                   ),
                 ),

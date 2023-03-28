@@ -20,6 +20,7 @@ class EndGameScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeCasino = Theme.of(context);
     return WillPopScope(
       onWillPop: () async => false, // Empêche la navigation en arrière
       child: Scaffold(
@@ -34,6 +35,7 @@ class EndGameScreen extends StatelessWidget {
               image: DecorationImage(
                 image: AssetImage(end()),
                 fit: BoxFit.cover,
+                colorFilter: ColorFilter.mode(themeCasino.colorScheme.secondary.withOpacity(0.6), BlendMode.darken),
               ),
             ),
           ),
@@ -45,14 +47,14 @@ class EndGameScreen extends StatelessWidget {
               child: Card(
                 margin: const EdgeInsets.all(24),
                 elevation: 8,
-                shadowColor: Colors.red,
+                shadowColor: themeCasino.primaryColorDark,
                 // shadowColor: Colors.green[900],
                 color: Colors.red[200]?.withOpacity(0.9),
                 shape: RoundedRectangleBorder(
                   // Ajouter cette ligne
                   borderRadius: BorderRadius.circular(16),
                   side: BorderSide(
-                    color: Colors.red[900]!,
+                    color: themeCasino.primaryColorDark,
                     width: 2,
                   ),
                 ),
@@ -71,7 +73,7 @@ class EndGameScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(16),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.25),
+                            color: themeCasino.primaryColor.withOpacity(0.25),
                             spreadRadius: 8 / 2,
                             blurRadius: 8,
                             offset: const Offset(0, 8 / 2),
@@ -103,7 +105,7 @@ class EndGameScreen extends StatelessWidget {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => HomeScreen(),
+                            builder: (context) => const HomeScreen(),
                           ),
                         );
                       },

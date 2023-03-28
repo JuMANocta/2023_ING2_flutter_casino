@@ -1,5 +1,4 @@
 import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'game_screen.dart';
 
@@ -64,6 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeCasino = Theme.of(context);
     return WillPopScope(
       onWillPop: () async => false, // Empêche la navigation en arrière
       child: Scaffold(
@@ -79,6 +79,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 image: DecorationImage(
                   image: AssetImage(porte()),
                   fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(themeCasino.primaryColor.withOpacity(0.6), BlendMode.darken),
                 ),
               ),
             ),
@@ -89,10 +90,10 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Card(
                   margin: const EdgeInsets.all(24),
                   elevation: 8,
-                  // shadowColor: Colors.green[900],
-                  color: Colors.green[200]?.withOpacity(0.9),
+                  shadowColor: themeCasino.primaryColor,
+                  color: themeCasino.colorScheme.secondary.withOpacity(0.9),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       const Text(
                         'Bienvenue dans le casino',
@@ -101,7 +102,6 @@ class _HomeScreenState extends State<HomeScreen> {
                             color: Colors.black,
                             fontWeight: FontWeight.bold),
                       ),
-                      const SizedBox(height: 16),
                       Container(
                         margin: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
@@ -120,14 +120,13 @@ class _HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
-                      const SizedBox(height: 16),
                       ElevatedButton(
                         onPressed: startGame,
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(
                               horizontal: 32, vertical: 16),
-                          textStyle: const TextStyle(fontSize: 20),
-                          minimumSize: const Size(120, 50),
+                          textStyle: themeCasino.textTheme.bodyMedium,
+                          // minimumSize: const Size(120, 50),
                         ),
                         child: const Text('Démarrer Game 🤑'),
                       ),

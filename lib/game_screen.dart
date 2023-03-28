@@ -113,6 +113,7 @@ class _GameScreenState extends State<GameScreen> {
 
   @override
   Widget build(BuildContext context) {
+    ThemeData themeCasino = Theme.of(context);
     return WillPopScope(
       onWillPop: () async => false, // Empêche la navigation en arrière
       child: Scaffold(
@@ -128,6 +129,9 @@ class _GameScreenState extends State<GameScreen> {
                 image: DecorationImage(
                   image: AssetImage(_indoorImage),
                   fit: BoxFit.cover,
+                  colorFilter: ColorFilter.mode(
+                      themeCasino.colorScheme.secondary.withOpacity(0.6),
+                      BlendMode.darken),
                 ),
               ),
             ),
@@ -137,8 +141,9 @@ class _GameScreenState extends State<GameScreen> {
                 margin: const EdgeInsets.only(
                     top: 24, left: 24, right: 24, bottom: 8),
                 elevation: 8,
-                shadowColor: Colors.green[900],
-                color: Colors.white.withOpacity(0.9),
+                shadowColor: themeCasino
+                    .primaryColorDark, // Utiliser la couleur du thème
+                color: themeCasino.cardColor.withOpacity(0.9),
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Text(
@@ -148,7 +153,7 @@ class _GameScreenState extends State<GameScreen> {
                     style: TextStyle(
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
-                      color: Colors.green[700],
+                      color: themeCasino.colorScheme.secondary,
                     ),
                   ),
                 ),
@@ -162,14 +167,13 @@ class _GameScreenState extends State<GameScreen> {
                 child: Card(
                   margin: const EdgeInsets.all(24),
                   elevation: 8,
-                  shadowColor: Colors.green[900],
-                  // shadowColor: Colors.green[900],
-                  color: Colors.green[200]?.withOpacity(0.9),
+                  shadowColor: themeCasino.primaryColor,
+                  color: themeCasino.colorScheme.secondary.withOpacity(0.9),
                   shape: RoundedRectangleBorder(
                     // Ajouter cette ligne
                     borderRadius: BorderRadius.circular(16),
-                    side: BorderSide(
-                      color: Colors.green[900]!,
+                    side: const BorderSide(
+                      color: Colors.black,
                       width: 2,
                     ),
                   ),
@@ -200,11 +204,11 @@ class _GameScreenState extends State<GameScreen> {
                           style: const TextStyle(fontSize: 20)),
                       // const SizedBox(height: 8),
                       NumberPicker(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color:
-                              Colors.green[700], // Changer la couleur du texte
+                              Colors.black, // Changer la couleur du texte
                           fontStyle: FontStyle.italic,
                         ),
                         infiniteLoop: true,
@@ -229,11 +233,11 @@ class _GameScreenState extends State<GameScreen> {
                           style: const TextStyle(fontSize: 20)),
                       // const SizedBox(height: 8),
                       NumberPicker(
-                        textStyle: TextStyle(
+                        textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
                           color:
-                              Colors.green[700], // Changer la couleur du texte
+                              Colors.black, // Changer la couleur du texte
                           fontStyle: FontStyle.italic,
                         ),
                         infiniteLoop: true,
@@ -246,8 +250,8 @@ class _GameScreenState extends State<GameScreen> {
                         maxValue: widget.solde,
                         value: _currentMise,
                         axis: Axis.horizontal,
-                        onChanged: (value) =>
-                            setState(() => _currentMise = value),
+                        onChanged: (value) => setState(
+                            () => _currentMise = min(value, widget.solde)),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.black26),

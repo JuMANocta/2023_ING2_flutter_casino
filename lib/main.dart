@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'home_screen.dart';
+import 'theme_casino.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,10 +13,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Casino App',
-      theme: ThemeData(
-        primarySwatch: Colors.green,
-      ),
-      home: HomeScreen(),
+      theme: casinoTheme,
+      home: const HomeScreen(),
     );
   }
 }
