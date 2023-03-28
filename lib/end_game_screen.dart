@@ -42,14 +42,14 @@ class EndGameScreen extends StatelessWidget {
           Align(
             alignment: Alignment.center,
             child: SizedBox(
-              height: MediaQuery.of(context).size.height / 1.2,
+              height: MediaQuery.of(context).size.height / 1.8,
               width: MediaQuery.of(context).size.width / 1.2,
               child: Card(
                 margin: const EdgeInsets.all(24),
                 elevation: 8,
                 shadowColor: themeCasino.primaryColorDark,
                 // shadowColor: Colors.green[900],
-                color: Colors.red[200]?.withOpacity(0.9),
+                color: Colors.red[200]?.withOpacity(0.8),
                 shape: RoundedRectangleBorder(
                   // Ajouter cette ligne
                   borderRadius: BorderRadius.circular(16),

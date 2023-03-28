@@ -1,5 +1,4 @@
 import 'package:casino_2023_ing2_flutter/end_game_screen.dart';
-import 'package:casino_2023_ing2_flutter/game_logic.dart';
 import 'package:flutter/material.dart';
 import 'package:confetti/confetti.dart';
 import 'dart:math';
@@ -80,7 +79,9 @@ class _ResultScreenState extends State<ResultScreen> {
               image: DecorationImage(
                 image: AssetImage(roulette()),
                 fit: BoxFit.cover,
-                colorFilter: ColorFilter.mode(themeCasino.colorScheme.secondary.withOpacity(0.6), BlendMode.darken),
+                colorFilter: ColorFilter.mode(
+                    themeCasino.colorScheme.secondary.withOpacity(0.6),
+                    BlendMode.darken),
               ),
             ),
           ),
@@ -114,8 +115,8 @@ class _ResultScreenState extends State<ResultScreen> {
                         blastDirectionality: BlastDirectionality.explosive,
                         shouldLoop: true,
                         blastDirection: pi / 2,
-                        emissionFrequency: 0.05,
-                        numberOfParticles: 10,
+                        emissionFrequency: 0.1,
+                        numberOfParticles: 15,
                         gravity: 0.05,
                         colors: const [
                           Colors.cyan,
@@ -153,7 +154,7 @@ class _ResultScreenState extends State<ResultScreen> {
                             ),
                           );
                         } else {
-                          widget.onPlayAgain(widget.solde);
+                          widget.onPlayAgain(widget.solde, widget.mise);
                           Navigator.pop(context);
                         }
                       },

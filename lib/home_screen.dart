@@ -12,10 +12,19 @@ class HomeScreen extends StatefulWidget {
 class _HomeScreenState extends State<HomeScreen> {
   late int solde;
   final TextEditingController soldeController = TextEditingController();
+  late String _porte;
+
+  @override
+  void initState() {
+    super.initState();
+    _porte = porte();
+  }
 
   // créer la logique de vérification utilisateur
   void startGame() {
-    if (soldeController.text.isNotEmpty) {
+    if (soldeController.text.isEmpty) {
+      showErro();
+    }else {
       try {
         solde = int.parse(soldeController.text);
       } catch (e) {
@@ -30,22 +39,29 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         );
       } else {
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: const Text('Erreur'),
-                content: const Text('Le solde doit être supérieur à 0'),
-                actions: [
-                  TextButton(
-                    onPressed: () => Navigator.pop(context),
-                    child: const Text('OK'),
-                  ),
-                ],
-              );
-            });
+        showErro();
       }
     }
+  }
+
+  void showErro() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return Theme(
+            data: ThemeData.dark(),
+            child: AlertDialog(
+              title: const Text('Erreur'),
+              content: const Text('Le solde doit être supérieur à 0'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.pop(context),
+                  child: const Text('OK'),
+                ),
+              ],
+            ),
+          );
+        });
   }
 
   String porte() {
@@ -77,9 +93,11 @@ class _HomeScreenState extends State<HomeScreen> {
             Container(
               decoration: BoxDecoration(
                 image: DecorationImage(
-                  image: AssetImage(porte()),
+                  image: AssetImage(_porte),
                   fit: BoxFit.cover,
-                  colorFilter: ColorFilter.mode(themeCasino.primaryColor.withOpacity(0.6), BlendMode.darken),
+                  colorFilter: ColorFilter.mode(
+                      themeCasino.primaryColor.withOpacity(0.6),
+                      BlendMode.darken),
                 ),
               ),
             ),
@@ -88,12 +106,20 @@ class _HomeScreenState extends State<HomeScreen> {
               child: SizedBox(
                 height: MediaQuery.of(context).size.height / 3,
                 child: Card(
-                  margin: const EdgeInsets.all(24),
+                  margin: const EdgeInsets.only(left: 24, right: 24),
                   elevation: 8,
                   shadowColor: themeCasino.primaryColor,
-                  color: themeCasino.colorScheme.secondary.withOpacity(0.9),
+                  color: themeCasino.colorScheme.secondary.withOpacity(0.8),
+                  shape: RoundedRectangleBorder(
+                    // Ajouter cette ligne
+                    borderRadius: BorderRadius.circular(16),
+                    side: const BorderSide(
+                      color: Colors.black,
+                      width: 2,
+                    ),
+                  ),
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       const Text(
                         'Bienvenue dans le casino',
@@ -103,21 +129,22 @@ class _HomeScreenState extends State<HomeScreen> {
                             fontWeight: FontWeight.bold),
                       ),
                       Container(
-                        margin: const EdgeInsets.all(16),
+                        margin: const EdgeInsets.only(left: 75, right: 75),
                         decoration: BoxDecoration(
                           color:
-                              Colors.white.withOpacity(0.6), // Couleur opaque
+                              Colors.white60.withOpacity(0.6), // Couleur opaque
                           borderRadius: BorderRadius.circular(4),
                         ),
                         child: TextFormField(
-                          //maxLength: 3,
+                          maxLength: 4,
                           textAlign: TextAlign.center,
+                          style: themeCasino.textTheme.bodyMedium,
                           controller: soldeController,
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
-                            labelText: 'Entrez votre solde',
-                            border: OutlineInputBorder(),
-                          ),
+                              labelText: 'Entrez votre solde',
+                              border: OutlineInputBorder(),
+                              counterText: ''),
                         ),
                       ),
                       ElevatedButton(

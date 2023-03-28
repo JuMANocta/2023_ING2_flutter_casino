@@ -15,12 +15,13 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late int chiffre;
-  late int mise;
+  int mise = 0;
   final TextEditingController chiffreController = TextEditingController();
   final TextEditingController miseController = TextEditingController();
   int _currentChiffre = 0;
   int _currentMise = 1;
   late String _indoorImage;
+  
 
   @override
   void initState() {
@@ -58,6 +59,13 @@ class _GameScreenState extends State<GameScreen> {
     //     mise = 0;
     //     miseController.clear();
     //   }
+    if (mise > widget.solde) {
+      message =
+          'La mise $mise doit être inférieur à votre solde de ${widget.solde}€';
+    }
+    if(mise == 0){
+      message = 'La mise doit être supérieur à 0';
+    }
 
     if (chiffre >= 0 && chiffre <= 49 && mise > 0 && mise <= widget.solde) {
       GameLogic gameLogic =
@@ -73,11 +81,12 @@ class _GameScreenState extends State<GameScreen> {
               isWinner: gameLogic.isWinner,
               croupier: gameLogic.croupier,
               message: gameLogic.message,
-              onPlayAgain: (int newSolde) {
+              onPlayAgain: (int newSolde, int newMise) {
                 setState(() {
                   widget.solde = newSolde;
-                  chiffreController.clear();
-                  miseController.clear();
+                  _currentMise = newMise > newSolde ? newSolde : newMise;
+                  // chiffreController.clear();
+                  // miseController.clear();
                 });
               }),
         ),
@@ -86,15 +95,18 @@ class _GameScreenState extends State<GameScreen> {
       showDialog(
           context: context,
           builder: (BuildContext context) {
-            return AlertDialog(
-              title: const Text('Erreur'),
-              content: Text(message),
-              actions: [
-                TextButton(
-                  onPressed: () => Navigator.pop(context),
-                  child: const Text('OK'),
-                ),
-              ],
+            return Theme(
+              data: ThemeData.dark(),
+              child: AlertDialog(
+                title: const Text('Erreur'),
+                content: Text(message),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
             );
           });
     }
@@ -207,8 +219,7 @@ class _GameScreenState extends State<GameScreen> {
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color:
-                              Colors.black, // Changer la couleur du texte
+                          color: Colors.black, // Changer la couleur du texte
                           fontStyle: FontStyle.italic,
                         ),
                         infiniteLoop: true,
@@ -229,15 +240,14 @@ class _GameScreenState extends State<GameScreen> {
                         ),
                       ),
                       // const SizedBox(height: 16),
-                      Text('Votre mise : $_currentMise',
+                      Text('Votre mise : $_currentMise€',
                           style: const TextStyle(fontSize: 20)),
                       // const SizedBox(height: 8),
                       NumberPicker(
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
-                          color:
-                              Colors.black, // Changer la couleur du texte
+                          color: Colors.black, // Changer la couleur du texte
                           fontStyle: FontStyle.italic,
                         ),
                         infiniteLoop: true,
@@ -246,12 +256,12 @@ class _GameScreenState extends State<GameScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.black,
                         ),
-                        minValue: 1,
+                        minValue: 1 == widget.solde? 0 : 1,
                         maxValue: widget.solde,
                         value: _currentMise,
                         axis: Axis.horizontal,
-                        onChanged: (value) => setState(
-                            () => _currentMise = min(value, widget.solde)),
+                        onChanged: (value) =>
+                            setState(() => _currentMise = value),
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(color: Colors.black26),

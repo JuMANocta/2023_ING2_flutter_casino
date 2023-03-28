@@ -2,7 +2,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/material.dart';
 
 final ThemeData casinoTheme = ThemeData(
-  colorScheme: const ColorScheme(
+  colorScheme: const ColorScheme.dark(
     primary: Color(0xFF2C2C2E),
     secondary: Color(0xFFD4AF37),
     surface: Color(0xFF1C1C1E),
